@@ -34,7 +34,7 @@ describe("when testing json-packet module", function(){
         const parser = new PacketParser();
         var packets = [];
         before(function(done){
-            parser.on("packet", (packet) => {
+            parser.on("json", (packet) => {
                 packets.push(packet);
                 if(packets.length === 4){
                     done();
@@ -70,7 +70,7 @@ describe("when testing json-packet module", function(){
         const parser = new PacketParser();
         var result;
         before(function(done){
-            parser.on("packet", (data) => {
+            parser.on("json", (data) => {
                 result = data;
                 done();
             });
