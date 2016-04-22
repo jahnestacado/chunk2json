@@ -1,3 +1,8 @@
+/**
+* chunk2json <https://github.com/jahnestacado/chunk2json>
+* Copyright (c) 2016 Ioannis Tzanellis
+* Licensed under the MIT License (MIT).
+*/
 "use strict";
 const assert = require("assert");
 const PacketParser = require("../../index.js");
