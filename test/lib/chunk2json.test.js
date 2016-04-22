@@ -4,14 +4,14 @@
 * Licensed under the MIT License (MIT).
 */
 "use strict";
-const assert = require("assert");
-const PacketParser = require("../../index.js");
-const fs = require("fs");
-const readline = require("readline");
+var assert = require("assert");
+var PacketParser = require("../../index.js");
+var fs = require("fs");
+var readline = require("readline");
 
 describe("when testing json-packet module", function(){
     describe("when passing multiple json objectss in chunks", function() {
-        const chunks = [
+        var chunks = [
             new Buffer('    {"menu": {'),
             new Buffer('  "id": "file",'),
             new Buffer('  "value": "File",'),
@@ -36,7 +36,7 @@ describe("when testing json-packet module", function(){
             new Buffer('}}]')
         ];
 
-        const parser = new PacketParser();
+        var parser = new PacketParser();
         var packets = [];
         before(function(done){
             parser.on("json", (packet) => {
@@ -72,7 +72,7 @@ describe("when testing json-packet module", function(){
     });
 
     describe("when passing a big json array object in chunks", function() {
-        const parser = new PacketParser();
+        var parser = new PacketParser();
         var result;
         before(function(done){
             parser.on("json", (data) => {
@@ -80,7 +80,7 @@ describe("when testing json-packet module", function(){
                 done();
             });
 
-            const lineReader = readline.createInterface({
+            var lineReader = readline.createInterface({
                 input:fs.createReadStream(__dirname + "/../resources/large.json")
             });
             lineReader.on("line",(line) => {
