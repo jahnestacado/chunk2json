@@ -1,0 +1,14 @@
+{
+  "name": "json-packet-parser",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec test/lib/json-packet-parser.test.js"
+  },
+  "author": "Ioannis Tzanellis <ioannis.tzanellis@aimms.com> (https://estacadoslair.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
