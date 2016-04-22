@@ -1,6 +1,6 @@
 {
   "name": "chunk2json",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "JSON parser that extracts JSON objects out of a byte stream without the use of delimeters",
   "main": "index.js",
   "scripts": {
