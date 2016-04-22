@@ -83,7 +83,7 @@ describe("when testing json-packet module", function(){
             });
         });
 
-        it("should the expected JSON array object of length 1000", function() {
+        it("should return the expected JSON array object of length 1000", function() {
             assert.equal(JSON.parse(result).length, 1000);
         });
     });
