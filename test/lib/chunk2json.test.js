@@ -7,7 +7,7 @@
 var assert = require("assert");
 var PacketParser = require("../../index.js");
 var fs = require("fs");
-var readline = require("readline");
+var split = require("split");
 
 describe("when testing json-packet module", function(){
     describe("when passing multiple json objectss in chunks", function(){
@@ -80,12 +80,11 @@ describe("when testing json-packet module", function(){
                 done();
             });
 
-            var lineReader = readline.createInterface({
-                input:fs.createReadStream(__dirname + "/../resources/large.json")
-            });
-            lineReader.on("line", function(line){
+            fs.createReadStream(__dirname + "/../resources/large.json")
+            .pipe(split())
+            .on("data", function (line) {
                 parser.consume(new Buffer(line));
-            });
+            })
         });
 
         it("should return the expected JSON array object of length 1000", function(){
