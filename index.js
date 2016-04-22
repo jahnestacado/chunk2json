@@ -1,1 +1,1 @@
-module.exports = require('./lib/json-packet-parser.js');
+module.exports = require('./lib/chunk2json.js');

@@ -1,10 +1,10 @@
 {
-  "name": "json-packet-parser",
+  "name": "chunk2json",
   "version": "0.0.3",
-  "description": "",
+  "description": "JSON parser that extracts JSON objects out of a byte stream without the use of delimeters",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter spec test/lib/json-packet-parser.test.js"
+    "test": "mocha --reporter spec test/lib/chunk2json.test.js"
   },
   "author": "Ioannis Tzanellis <ioannis.tzanellis@aimms.com> (https://estacadoslair.com)",
   "license": "MIT",
@@ -13,6 +13,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jahnestacado/json-packet-parser"
+    "url": "https://github.com/jahnestacado/chunk2json"
   }
 }
