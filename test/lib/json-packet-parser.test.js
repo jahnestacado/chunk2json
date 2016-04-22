@@ -5,8 +5,8 @@ const fs = require("fs");
 const readline = require("readline");
 
 describe("when testing json-packet module", function(){
-    describe("when passing a json object literal in chunks", function() {
-        const packets = [
+    describe("when passing multiple json objectss in chunks", function() {
+        const chunks = [
             new Buffer('    {"menu": {'),
             new Buffer('  "id": "file",'),
             new Buffer('  "value": "File",'),
@@ -16,28 +16,9 @@ describe("when testing json-packet module", function(){
             new Buffer('      {"va[lue": "Cl]ose", "onclick": "CloseDoc()"}'),
             new Buffer('    ]'),
             new Buffer('  }'),
-            new Buffer('}}')
-        ];
-
-        const parser = new PacketParser();
-        var result;
-        before(function(done){
-            packets.forEach((packet) => {
-                parser.on("packet", (data) => {
-                    result = data;
-                    done();
-                });
-                parser.consume(packet);
-            });
-        });
-
-        it("should return the expected JSON object", function() {
-            assert.equal(JSON.parse(result).menu.value, "File");
-        });
-    });
-
-    describe("when passing an array of objects in chunks", function() {
-        const packets = [
+            new Buffer('}}'),
+            new Buffer('{"name": "json-packet-parser","repository": {"type": "git","url": "https://github.com/jahnestacado/json-packet-parser"}}'),
+            new Buffer('[{"name": "json-packet-parser","repository": {"type": "git","url": "https://github.com/jahnestacado/json-packet-parser"}}]'),
             new Buffer('[    {"menu": {'),
             new Buffer('  "id": "file",'),
             new Buffer('  "value": "File",'),
@@ -51,19 +32,37 @@ describe("when testing json-packet module", function(){
         ];
 
         const parser = new PacketParser();
-        var result;
+        var packets = [];
         before(function(done){
-            packets.forEach((packet) => {
-                parser.on("packet", (data) => {
-                    result = data;
+            parser.on("packet", (packet) => {
+                packets.push(packet);
+                if(packets.length === 4){
                     done();
-                });
-                parser.consume(packet);
+                }
+            });
+            chunks.forEach((chunk) => {
+                parser.consume(chunk);
             });
         });
 
-        it("should return the expected JSON array object", function() {
-            assert.equal(JSON.parse(result)[0].menu.value, "File");
+        it("should return 4 JSON packets", () => {
+            assert.equal(packets.length, 4);
+        });
+
+        it("should have in packets[0] the expected JSON object", function() {
+            assert.equal(JSON.parse(packets[0]).menu.value, "File");
+        });
+
+        it("should have in packets[1] the expected JSON object", function() {
+            assert.equal(JSON.parse(packets[1]).name, "json-packet-parser");
+        });
+
+        it("should have in packets[2] the expected JSON object", function() {
+            assert.equal(JSON.parse(packets[2])[0].name, "json-packet-parser");
+        });
+
+        it("should have in packets[3] the expected JSON object", function() {
+            assert.equal(JSON.parse(packets[3])[0].menu.value, "File");
         });
     });
 
