@@ -10,7 +10,7 @@ var fs = require("fs");
 var readline = require("readline");
 
 describe("when testing json-packet module", function(){
-    describe("when passing multiple json objectss in chunks", function() {
+    describe("when passing multiple json objectss in chunks", function(){
         var chunks = [
             new Buffer('    {"menu": {'),
             new Buffer('  "id": "file",'),
@@ -39,43 +39,43 @@ describe("when testing json-packet module", function(){
         var parser = new PacketParser();
         var packets = [];
         before(function(done){
-            parser.on("json", (packet) => {
+            parser.on("json", function(packet){
                 packets.push(packet);
                 if(packets.length === 4){
                     done();
                 }
             });
-            chunks.forEach((chunk) => {
+            chunks.forEach(function(chunk){
                 parser.consume(chunk);
             });
         });
 
-        it("should return 4 JSON packets", () => {
+        it("should return 4 JSON packets", function(){
             assert.equal(packets.length, 4);
         });
 
-        it("should have in packets[0] the expected JSON object", function() {
+        it("should have in packets[0] the expected JSON object", function(){
             assert.equal(JSON.parse(packets[0]).menu.value, "File");
         });
 
-        it("should have in packets[1] the expected JSON object", function() {
+        it("should have in packets[1] the expected JSON object", function(){
             assert.equal(JSON.parse(packets[1]).name, "json-packet-parser");
         });
 
-        it("should have in packets[2] the expected JSON object", function() {
+        it("should have in packets[2] the expected JSON object", function(){
             assert.equal(JSON.parse(packets[2])[0].name, "json-packet-parser");
         });
 
-        it("should have in packets[3] the expected JSON object", function() {
+        it("should have in packets[3] the expected JSON object", function(){
             assert.equal(JSON.parse(packets[3])[0].menu.value, "File");
         });
     });
 
-    describe("when passing a big json array object in chunks", function() {
+    describe("when passing a big json array object in chunks", function(){
         var parser = new PacketParser();
         var result;
         before(function(done){
-            parser.on("json", (data) => {
+            parser.on("json", function(data){
                 result = data;
                 done();
             });
@@ -83,12 +83,12 @@ describe("when testing json-packet module", function(){
             var lineReader = readline.createInterface({
                 input:fs.createReadStream(__dirname + "/../resources/large.json")
             });
-            lineReader.on("line",(line) => {
+            lineReader.on("line", function(line){
                 parser.consume(new Buffer(line));
             });
         });
 
-        it("should return the expected JSON array object of length 1000", function() {
+        it("should return the expected JSON array object of length 1000", function(){
             assert.equal(JSON.parse(result).length, 1000);
         });
     });
