@@ -29,7 +29,8 @@ parser.consume(new Buffer(',"kills": false,'));
 parser.consume(new Buffer('"line": "I am the goddamn Batman"}]'));
 ```
 
-The parser consumes buffers which can contain partial and/or complete JSON chunks. When a complete JSON object is identified it invokes the `on("json")` event callback with the corresponding JSON object(in buffer form).
+
+The parser consumes buffers which can contain partial and/or complete JSON chunks. When a complete JSON object is identified the `on("json")` event callback is invoked with the corresponding JSON object(in buffer form).
     
 ## Test
 Run the tests
