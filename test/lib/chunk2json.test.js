@@ -9,8 +9,8 @@ var PacketParser = require("../../index.js");
 var fs = require("fs");
 var split = require("split");
 
-describe("when testing json-packet module", function(){
-    describe("when passing multiple json objectss in chunks", function(){
+describe("when testing chunk2json module", function(){
+    describe("when passing multiple json objects in chunks", function(){
         var chunks = [
             new Buffer('    {"menu": {'),
             new Buffer('  "id": "file",'),
