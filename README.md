@@ -1,6 +1,7 @@
 [![NPM version](http://img.shields.io/npm/v/chunk2json.svg)](https://www.npmjs.org/package/chunk2json)
 [![Build Status](https://travis-ci.org/jahnestacado/chunk2json.svg?branch=master)](https://travis-ci.org/jahnestacado/chunk2json)
 [![downloads per month](http://img.shields.io/npm/dm/chunk2json.svg)](https://www.npmjs.org/package/chunk2json)
+[![Coverage Status](https://coveralls.io/repos/github/jahnestacado/chunk2json/badge.svg?branch=master)](https://coveralls.io/github/jahnestacado/chunk2json?branch=master)
 # chunk2json
 -----------
 JSON parser that extracts JSON objects out of a byte stream without the use of delimeters.  
