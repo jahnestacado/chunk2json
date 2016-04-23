@@ -11,4 +11,6 @@ node_js:
   - "iojs"
 
 install: npm install
-script: npm test
+script: npm run-script test-on-travis
+after_success:
+  - npm run-script upload-to-coveralls

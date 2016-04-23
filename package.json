@@ -15,11 +15,15 @@
     "extract"
   ],
   "scripts": {
-    "test": "mocha --reporter spec test/lib/chunk2json.test.js"
+    "test": "mocha --reporter spec test/lib/chunk2json.test.js",
+    "test-on-travis": "./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha test/lib/chunk2json.test.js",
+    "upload-to-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "Ioannis Tzanellis <ioannis.tzanellis@aimms.com> (https://estacadoslair.com)",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "split": "^1.0.0"
   },
