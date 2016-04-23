@@ -3,6 +3,17 @@
   "version": "1.0.1",
   "description": "JSON parser that extracts JSON objects out of a byte stream without the use of delimeters",
   "main": "index.js",
+  "keywords": [
+    "json",
+    "stream",
+    "parser",
+    "buffer",
+    "chunk",
+    "tcp",
+    "readable",
+    "delimeter",
+    "extract"
+  ],
   "scripts": {
     "test": "mocha --reporter spec test/lib/chunk2json.test.js"
   },
