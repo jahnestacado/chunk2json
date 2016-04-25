@@ -18,19 +18,19 @@ describe("when testing chunk2json module", function(){
             new Buffer('  "popup": {'),
             new Buffer('    "menuitem": ['),
             new Buffer('      {"value": "Ope{{{n", "oncl}}}}ick": "OpenDoc()"},'),
-            new Buffer('      {"va[lue": "Cl]ose", "onclick": "CloseDoc()"}'),
+            new Buffer('      {"va[lue": "Cl]ose", "onclick": "CloseD \\" inner quotes \\"oc()"}'),
             new Buffer('    ]'),
             new Buffer('  }'),
             new Buffer('}}'),
-            new Buffer('{"name": "json-packet-parser","repository": {"type": "git","url": "https://github.com/jahnestacado/json-packet-parser"}}'),
-            new Buffer('[{"name": "json-packet-parser","repository": {"type": "git","url": "https://github.com/jahnestacado/json-packet-parser"}}]'),
+            new Buffer('{"name": "chunk2json","repository": {"type": "git","url": "https://github.com/jahnestacado/chunk2json"}}'),
+            new Buffer('[{"name": "chunk2json","repository \\" inner quotes \\"": {"type": "git","url": "https://github.com/jahnestacado/chunk2json"}}]'),
             new Buffer('[    {"menu": {'),
             new Buffer('  "id": "file",'),
             new Buffer('  "value": "File",'),
             new Buffer('  "popup": {'),
             new Buffer('    "menuitem": ['),
             new Buffer('      {"value": "Ope{{{n", "oncl}}}}ick": "OpenDoc()"},'),
-            new Buffer('      {"va[lue": "Cl]ose", "onclick": "CloseDoc()"}'),
+            new Buffer('      {"va[lue": "Cl]ose", "onclic\\" inner quotes \\"k": "CloseDoc()"}'),
             new Buffer('    ]'),
             new Buffer('  }'),
             new Buffer('}}]')
@@ -59,11 +59,11 @@ describe("when testing chunk2json module", function(){
         });
 
         it("should have in packets[1] the expected JSON object", function(){
-            assert.equal(JSON.parse(packets[1]).name, "json-packet-parser");
+            assert.equal(JSON.parse(packets[1]).name, "chunk2json");
         });
 
         it("should have in packets[2] the expected JSON object", function(){
-            assert.equal(JSON.parse(packets[2])[0].name, "json-packet-parser");
+            assert.equal(JSON.parse(packets[2])[0].name, "chunk2json");
         });
 
         it("should have in packets[3] the expected JSON object", function(){
