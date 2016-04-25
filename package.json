@@ -15,8 +15,8 @@
     "extract"
   ],
   "scripts": {
-    "test": "mocha --reporter spec test/lib/chunk2json.test.js",
-    "test-on-travis": "./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha test/lib/chunk2json.test.js",
+    "test": "mocha --reporter spec -t 5000 test/lib/chunk2json.test.js",
+    "test-on-travis": "./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha -- --timeout 5000 --slow 500 test/lib/chunk2json.test.js",
     "upload-to-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "author": "Ioannis Tzanellis <ioannis.tzanellis@aimms.com> (https://estacadoslair.com)",
