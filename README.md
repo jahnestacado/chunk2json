@@ -17,7 +17,7 @@ $ npm install chunk2json
 const ChunkParser = require("chunk2json");
 const parser = new ChunkParser();
 
-parser.on("json", function(jsonBuff) {
+parser.on("json", (jsonBuff) => {
     const jsonObj = JSON.parse(jsonBuff);
     console.log(jsonObj.length); // Prints 2
 });
