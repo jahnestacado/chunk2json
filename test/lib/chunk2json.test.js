@@ -11,63 +11,55 @@ var split = require("split");
 
 describe("when testing chunk2json module", function(){
     describe("when passing multiple json objects in chunks", function(){
-        var chunks = [
-            new Buffer('    {"menu": {'),
-            new Buffer('  "id": "file",'),
-            new Buffer('  "value": "File",'),
-            new Buffer('  "popup": {'),
-            new Buffer('    "menuitem": ['),
-            new Buffer('      {"value": "Ope{{{n", "oncl}}}}ick": "OpenDoc()"},'),
-            new Buffer('      {"va[lue": "Cl]ose", "onclick": "CloseD \\" inner quotes \\"oc()"}'),
-            new Buffer('    ]'),
-            new Buffer('  }'),
-            new Buffer('}}'),
-            new Buffer('{"name": "chunk2json","repository": {"type": "git","url": "https://github.com/jahnestacado/chunk2json"}}'),
-            new Buffer('[{"name": "chunk2json","repository \\" inner quotes \\"": {"type": "git","url": "https://github.com/jahnestacado/chunk2json"}}]'),
-            new Buffer('[    {"menu": {'),
-            new Buffer('  "id": "file",'),
-            new Buffer('  "value": "File",'),
-            new Buffer('  "popup": {'),
-            new Buffer('    "menuitem": ['),
-            new Buffer('      {"value": "Ope{{{n", "oncl}}}}ick": "OpenDoc()"},'),
-            new Buffer('      {"va[lue": "Cl]ose", "onclic\\" inner quotes \\"k": "CloseDoc()"}'),
-            new Buffer('    ]'),
-            new Buffer('  }'),
-            new Buffer('}}]')
+
+        var data1 = [
+            {
+                name: "Frank Castle",
+                kills: true,
+                line: "One batch, two batch, penny and dime\\"
+            },
+            {
+                name: "Bruce Wayne",
+                kills: false,
+                line: "I am the goddamn \"Batman\""
+            }
         ];
+
+        var data2 = {
+            name: "Peter Parker",
+            kills: false,
+            line: "My \"spidersense\" is tingling\\\\"
+        }
 
         var parser = new PacketParser();
         var packets = [];
         before(function(done){
             parser.on("json", function(packet){
                 packets.push(packet);
-                if(packets.length === 4){
+                if(packets.length === 2){
                     done();
                 }
             });
-            chunks.forEach(function(chunk){
-                parser.consume(chunk);
-            });
+            var dataString1 = JSON.stringify(data1);
+            var dataString2 = JSON.stringify(data2);
+            var stringChunks = dataString1 + dataString2;
+            for(var i=0; i < stringChunks.length; i++){
+                parser.consume(new Buffer(stringChunks[i]));
+            }
         });
 
-        it("should return 4 JSON packets", function(){
-            assert.equal(packets.length, 4);
+        it("should return 2 JSON packets", function(){
+            assert.equal(packets.length, 2);
         });
 
         it("should have in packets[0] the expected JSON object", function(){
-            assert.equal(JSON.parse(packets[0]).menu.value, "File");
+            assert.equal(JSON.parse(packets[0]).length, 2);
+            assert.equal(JSON.parse(packets[0])[0].name, data1[0].name);
+            assert.equal(JSON.parse(packets[0])[1].name, data1[1].name);
         });
 
         it("should have in packets[1] the expected JSON object", function(){
-            assert.equal(JSON.parse(packets[1]).name, "chunk2json");
-        });
-
-        it("should have in packets[2] the expected JSON object", function(){
-            assert.equal(JSON.parse(packets[2])[0].name, "chunk2json");
-        });
-
-        it("should have in packets[3] the expected JSON object", function(){
-            assert.equal(JSON.parse(packets[3])[0].menu.value, "File");
+            assert.equal(JSON.parse(packets[1]).name, data2.name);
         });
     });
 
