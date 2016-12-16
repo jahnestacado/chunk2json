@@ -18,8 +18,8 @@ const ChunkParser = require("chunk2json");
 const parser = new ChunkParser();
 
 parser.on("json", (jsonBuff) => {
-    const jsonObj = JSON.parse(jsonBuff);
-    console.log(jsonObj.length); // Prints 2
+    const result = JSON.parse(jsonBuff);
+    console.log(result); // Prints the expected array
 });
 
 parser.consume(new Buffer('[{"name": "Frank Castle"'));
